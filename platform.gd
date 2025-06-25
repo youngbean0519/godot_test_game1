@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 
 var landed := false
 @onready var main = get_tree().get_root().get_node("/root/Main")
@@ -9,8 +9,9 @@ func _ready():
 func _on_body_entered(body):
 	if body.name == "Player" and not landed:
 		landed = true
+		print("점수 + 100")
 		main.score += 100
 
 func _process(delta):
-	if global_position.y > main.camera.global_position.y + 600:
+	if global_position.y > main.camera.global_position.y:
 		queue_free()
