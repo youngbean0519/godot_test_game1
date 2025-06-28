@@ -4,17 +4,28 @@ const SPEED = 200
 const JUMP_VELOCITY = -600
 const GRAVITY = 1000
 
+func _ready():
+	$FootSensor.connect("area_entered", Callable(self, "_on_foor_sensor_area_entered"))
+
+func _on_foot_sensor_area_entered(area):
+	if area.is_in_group("Platform"):
+		if velocity.y > 0:
+			var main = get_tree().get_root().get_node("/root/Main")
+			main.score += 100
+			print("점수 + 100")
+
 func _physics_process(delta):
 	# 중력 적용
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta
-	
+
 	# 좌우 이동
-	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var direction = Input.get_action_strength("ui_right") \
+					- Input.get_action_strength("ui_left")
 	velocity.x = direction * SPEED
-	
-	# 점프
-	if is_on_floor() and Input.is_action_just_pressed("ui_accept"):	# 기본적으로 spacebar
+
+	# 점프 (spacebar = ui_accept)
+	if is_on_floor() and Input.is_action_just_pressed("ui_accept"):
 		velocity.y = JUMP_VELOCITY
-	
+
 	move_and_slide()

@@ -24,7 +24,6 @@ func _process(delta):
 func game_over():
 	if not game_over_panel.visible:
 		game_over_panel.visible = true
-		game_over_panel.process_mode = Node.PROCESS_MODE_ALWAYS
 		var score_label = game_over_panel.get_node("VBoxContainer/Score")
 		if score_label:
 			score_label.text = "Your score: %d" % score
@@ -33,6 +32,7 @@ func game_over():
 		get_tree().paused = true
 		
 func _on_retry_pressed() -> void:
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 func _on_quit_pressed() -> void:

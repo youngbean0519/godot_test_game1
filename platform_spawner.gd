@@ -2,8 +2,8 @@ extends Node2D
 
 @export var platform_scene: PackedScene
 @export var spawn_distance: int = 150
-@export var min_x: int = -150
-@export var max_x: int = 150
+@export var min_x: int = -200
+@export var max_x: int = 200
 @export var ahead_buffer := 1000	# 카메라보다 이만큼 위까지 발판을 미리 생성
 
 var last_y := 0.0
