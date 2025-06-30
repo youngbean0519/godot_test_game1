@@ -5,13 +5,14 @@ const JUMP_VELOCITY = -600
 const GRAVITY = 1000
 
 func _ready():
-	$FootSensor.connect("area_entered", Callable(self, "_on_foor_sensor_area_entered"))
+	$FootSensor.connect("area_entered", Callable(self, "_on_foot_sensor_area_entered"))
 
 func _on_foot_sensor_area_entered(area):
+	print("발판 충돌 감지")
 	if area.is_in_group("Platform"):
-		if velocity.y > 0:
-			var main = get_tree().get_root().get_node("/root/Main")
-			main.score += 100
+		#if velocity.y > 0:
+			var score_manager = get_tree().get_root().get_node("/root/Main/ScoreManager")
+			score_manager.add_score(100)
 			print("점수 + 100")
 
 func _physics_process(delta):
